@@ -343,4 +343,4 @@ Law-firms/
 
 ## Soporte
 
-Si algo no funciona, anota el mensaje de error completo y contacta al equipo técnico.
+Si algo no funciona, anota el mensaje de error completo y contactame
