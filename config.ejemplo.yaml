@@ -1,0 +1,48 @@
+# Copia este archivo como "config.yaml" y edítalo según tu campaña.
+# No necesitas tocar el código del script.
+
+# Archivo CSV exportado del scraper (debe estar en la misma carpeta o indicar ruta completa)
+archivo_entrada: findlaw.csv
+
+# Archivo donde se guardarán los leads filtrados (.xlsx recomendado para Excel)
+archivo_salida: firmas_filtradas.xlsx
+
+# Estados (códigos de 2 letras). Deja vacío [] para incluir todos.
+estados:
+  - CA
+  - IL
+
+# Áreas de práctica a buscar (coincidencia parcial, no distingue mayúsculas).
+# Deja vacío [] para no filtrar por área.
+areas:
+  - Personal Injury
+
+# Ciudades específicas. Deja vacío [] para incluir todas.
+ciudades: []
+
+# Tamaño del despacho: número de áreas de práctica registradas.
+# Útil cuando el CSV no trae una columna de tamaño directamente.
+# Deja en null para no aplicar este filtro.
+tamanio_min: null
+tamanio_max: null
+
+# Columna personalizada para medir tamaño (si tu exportación futura la incluye).
+# Ejemplo: "num_attorneys". Si no existe, se usa num_areas_practica.
+columna_tamanio: null
+
+# Columnas que aparecerán en el archivo de salida.
+# La columna "areas" se genera automáticamente al combinar las áreas de práctica.
+columnas_salida:
+  - name
+  - address/city
+  - address/region
+  - phone
+  - email
+  - website
+  - areas
+
+# Separar areas en columnas practiceAreas/0, practiceAreas/1, etc. (nombres del archivo original)
+separar_areas: true
+
+# Solo si exportas .csv: delimitador entre columnas (";" funciona bien en Excel en español/portugués)
+delimitador_csv: ";"
