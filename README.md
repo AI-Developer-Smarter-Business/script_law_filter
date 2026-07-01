@@ -176,6 +176,9 @@ python filtrar_leads.py --estados CA --tamanio-min 3 --tamanio-max 15
 
 # Vista previa sin exportar (muestra 10 filas en pantalla)
 python filtrar_leads.py --config config.yaml --vista-previa 10
+
+# Convertir solo un CSV a XLSX preservando cada columna por su nombre
+python filtrar_leads.py --archivo findlaw.csv --salida firmas.xlsx --convertir
 ```
 
 <a id="opciones-disponibles"></a>
@@ -198,6 +201,7 @@ python filtrar_leads.py --config config.yaml --vista-previa 10
 | `--listar-areas` | Muestra áreas de práctica disponibles |
 | `--listar-ciudades` | Muestra ciudades disponibles |
 | `--listar-columnas` | Muestra todas las columnas del CSV |
+| `--convertir` | Convierte el CSV de entrada a XLSX sin aplicar filtros |
 
 ---
 

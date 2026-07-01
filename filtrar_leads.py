@@ -367,10 +367,15 @@ def guardar_archivo(
     resultado: pd.DataFrame,
     ruta_salida: str,
     delimitador_csv: str,
+    convertir: bool = False,
 ) -> Path:
     """Guarda en Excel (.xlsx) o CSV con delimitador compatible con Excel."""
     path = Path(ruta_salida)
     extension = path.suffix.lower()
+
+    if convertir and extension not in (".xlsx", ".xls"):
+        path = path.with_suffix(".xlsx")
+        extension = path.suffix.lower()
 
     try:
         if extension in (".xlsx", ".xls"):
@@ -545,6 +550,11 @@ def construir_parser() -> argparse.ArgumentParser:
         help="Modo guiado paso a paso (recomendado si no programas).",
     )
     parser.add_argument(
+        "--convertir",
+        action="store_true",
+        help="Convierte un CSV a XLSX preservando cada columna por su nombre original.",
+    )
+    parser.add_argument(
         "--archivo",
         help="Archivo CSV de entrada.",
     )
@@ -636,12 +646,27 @@ def main() -> int:
     try:
         config = cargar_config(args.config)
 
-        if args.interactivo:
+        if args.convertir:
+            config = fusionar_config(config, args)
+        elif args.interactivo:
             config = modo_interactivo(config)
         else:
             config = fusionar_config(config, args)
 
         df = cargar_datos(config["archivo_entrada"])
+
+        if args.convertir:
+            guardar_archivo(
+                df,
+                config["archivo_salida"],
+                config.get("delimitador_csv", ";"),
+                convertir=True,
+            )
+            imprimir_ok(
+                f"CSV convertido a Excel: {Path(config['archivo_salida']).with_suffix('.xlsx').name}"
+            )
+            print("\nProceso completado.\n")
+            return 0
 
         if args.listar_estados:
             listar_valores_unicos(df, "estados")
